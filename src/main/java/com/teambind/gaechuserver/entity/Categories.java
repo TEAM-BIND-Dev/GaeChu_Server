@@ -16,6 +16,7 @@ import lombok.*;
 @Builder
 public class Categories {
 	@Id
+	@Column(name = "category_id")
 	private int category_id;
 	
 	@Column(name = "category_name")

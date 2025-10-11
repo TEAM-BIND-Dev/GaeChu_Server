@@ -1,5 +1,6 @@
 package com.teambind.gaechuserver.entity;
 
+import com.teambind.gaechuserver.entity.Ids.LikeAccountId;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,10 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class LikeAccount {
-	
-	@Id
-	@Column(name = "reference_id", length = 100)
-	private String referenceId;
+	@EmbeddedId
+	@AttributeOverrides({
+			@AttributeOverride(name = "categoryId", column = @Column(name = "category_id", nullable = false)),
+			@AttributeOverride(name = "referenceId", column = @Column(name = "reference_id", length = 100, nullable = false))
+	})
+	private LikeAccountId likeAccountId;
 	
 	@Column(name = "account", nullable = false)
 	private Long account;

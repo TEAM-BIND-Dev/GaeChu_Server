@@ -23,4 +23,11 @@ public class LikeReadService {
 		return likes;
 	}
 	
+	//TODO IMPL
+	public void fetchAllLikeByCategoryIdAndReferenceId(int categoryId, List<String> referenceId) {
+	}
+	
+	//TODO IMPL
+	public void fetchAllLikeAccountByCategoryIdAndReferenceId(int categoryId, String referenceId) {
+	}
 }

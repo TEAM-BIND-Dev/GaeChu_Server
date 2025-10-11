@@ -18,4 +18,6 @@ public interface LikeAccountRepository extends CrudRepository<LikeAccount, Strin
 	@Transactional
 	@Query(value = "UPDATE like_account SET account = account - 1 WHERE reference_id = :ref AND account > 0", nativeQuery = true)
 	int decrementAccountIfPositive(String ref);
+	
+	
 }
