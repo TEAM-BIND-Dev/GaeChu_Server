@@ -22,20 +22,4 @@ public class LikeAccount {
 	@Version
 	@Column(name = "version", nullable = false)
 	private Integer version;
-	
-	
-	public LikeAccount increaseAccount() {
-		this.account++;
-		return this;
-	}
-	
-	public LikeAccount decreaseAccount() {
-		this.account--;
-		return this;
-	}
-	
-	public LikeAccount resetAccount() {
-		this.account = 0L;
-		return this;
-	}
 }

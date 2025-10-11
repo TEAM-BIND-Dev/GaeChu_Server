@@ -1,6 +1,8 @@
 package com.teambind.gaechuserver.service;
 
 import com.teambind.gaechuserver.entity.Likes;
+import com.teambind.gaechuserver.exceptions.CustomException;
+import com.teambind.gaechuserver.exceptions.ErrorCode;
 import com.teambind.gaechuserver.repository.LikeAccountRepository;
 import com.teambind.gaechuserver.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ public class LikeServiceAtomic {
 	public int unLike(String referenceId, int categoryId, String likerId) {
 		Likes like = likeRepository.findByReferenceIdAndCategoryIdAndLikerId(referenceId, categoryId, likerId);
 		if (like == null) {
-			return 0;
+			throw new CustomException(ErrorCode.LIKE_NOT_FOUND);
 		}
 		likeRepository.delete(like);
 		
