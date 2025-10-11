@@ -1,5 +1,7 @@
 package com.teambind.gaechuserver.exceptions;
 
+import org.springframework.http.HttpStatus;
+
 public class CustomException extends RuntimeException {
 	private final ErrorCode errorcode;
 	

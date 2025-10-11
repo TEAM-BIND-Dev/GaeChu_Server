@@ -29,8 +29,8 @@ public class LikeServiceAtomic {
 				.build();
 		likeRepository.save(like);
 		
-		// DB에서 atomic upsert로 증가
-		return likeAccountRepository.upsertIncrementAccount(referenceId);
+		// DB에서 atomic upsert로 증가 (categoryId 추가)
+		return likeAccountRepository.upsertIncrementAccount(categoryId, referenceId);
 	}
 	
 	@Transactional
@@ -41,7 +41,7 @@ public class LikeServiceAtomic {
 		}
 		likeRepository.delete(like);
 		
-		// DB에서 atomic upsert로 증가
-		return likeAccountRepository.decrementAccountIfPositive(referenceId);
+		// DB에서 atomic 감소 (categoryId 추가)
+		return likeAccountRepository.decrementAccountIfPositive(categoryId, referenceId);
 	}
 }

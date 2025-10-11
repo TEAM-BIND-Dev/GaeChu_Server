@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
 	LIKE_NOT_FOUND("LIKE_001", "Like Not Found", HttpStatus.NOT_FOUND),
+	INVALID_CATEGORY("CAT_001", "허용하지않은 카테고리입니다", HttpStatus.BAD_REQUEST),
 	;
 	
 	
