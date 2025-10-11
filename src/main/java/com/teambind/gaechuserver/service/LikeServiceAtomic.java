@@ -5,6 +5,7 @@ import com.teambind.gaechuserver.exceptions.CustomException;
 import com.teambind.gaechuserver.exceptions.ErrorCode;
 import com.teambind.gaechuserver.repository.LikeAccountRepository;
 import com.teambind.gaechuserver.repository.LikeRepository;
+import com.teambind.gaechuserver.utils.generator.KeyProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,12 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikeServiceAtomic {
 	private final LikeRepository likeRepository;
 	private final LikeAccountRepository likeAccountRepository;
+	private KeyProvider keyProvider;
 	
 	
 	@Transactional
 	public int like(String referenceId, int categoryId, String likerId) {
 		Likes like = Likes.builder()
-				.likeId(java.util.UUID.randomUUID().toString())
+				.likeId(keyProvider.generateKey())
 				.categoryId(categoryId)
 				.referenceId(referenceId)
 				.likerId(likerId)
