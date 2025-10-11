@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikeServiceAtomic {
 	private final LikeRepository likeRepository;
 	private final LikeAccountRepository likeAccountRepository;
-	private KeyProvider keyProvider;
+	private final KeyProvider keyProvider;
 	
 	
 	@Transactional
