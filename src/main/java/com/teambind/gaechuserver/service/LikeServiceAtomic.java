@@ -17,11 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class LikeServiceAtomic {
 	private final LikeRepository likeRepository;
 	private final LikeAccountRepository likeAccountRepository;
-	private final KeyProvider keyProvider;
+	private KeyProvider keyProvider;
 	
 	
 	@Transactional
 	public int like(String referenceId, int categoryId, String likerId) {
+		// 1) 부모 테이블(like_account)을 먼저 upsert하여 FK 보장
+		int affected = likeAccountRepository.upsertIncrementAccount(categoryId, referenceId);
+		
+		// 2) 자식 테이블(likes)에 사용자 개별 like 기록 저장
 		Likes like = Likes.builder()
 				.likeId(keyProvider.generateKey())
 				.categoryId(categoryId)
@@ -29,10 +33,9 @@ public class LikeServiceAtomic {
 				.likerId(likerId)
 				.likedAt(java.time.LocalDateTime.now())
 				.build();
-		likeRepository.save(like);
+		likeRepository.saveAndFlush(like);
 		
-		// DB에서 atomic upsert로 증가 (categoryId 추가)
-		return likeAccountRepository.upsertIncrementAccount(categoryId, referenceId);
+		return affected;
 	}
 	
 	@Transactional
