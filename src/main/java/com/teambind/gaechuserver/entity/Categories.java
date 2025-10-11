@@ -20,4 +20,6 @@ public class Categories {
 	
 	@Column(name = "category_name")
 	private String categoryName;
+	
+	
 }

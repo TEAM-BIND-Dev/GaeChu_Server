@@ -31,4 +31,6 @@ public class Likes {
 	
 	@Column(name = "liked_at", nullable = false)
 	private LocalDateTime likedAt;
+	
+	
 }
