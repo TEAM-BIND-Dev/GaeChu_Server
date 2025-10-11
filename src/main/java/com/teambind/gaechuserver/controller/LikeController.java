@@ -19,7 +19,7 @@ public class LikeController {
 	}
 	
 	//TODO impl this
-	@GetMapping("/count/{categoryId}/{referenceId}")
+	@GetMapping("/detail/{categoryId}/{referenceId}")
 	public void getLikeAccount(@PathVariable(required = true) Long categoryId, @PathVariable(required = true) String referenceId) {
 	}
 	

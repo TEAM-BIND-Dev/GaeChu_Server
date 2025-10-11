@@ -1,6 +1,6 @@
 package com.teambind.gaechuserver.service;
 
-import com.teambind.gaechuserver.entity.Likes;
+import com.teambind.gaechuserver.dto.response.LikeDetailResponse;
 import com.teambind.gaechuserver.repository.LikeAccountRepository;
 import com.teambind.gaechuserver.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +18,7 @@ public class LikeReadService {
 	
 	
 	//TODO IMPL RESPONSE
-	public List<?> fetchMyLikeByCategoryId(int categoryId, String likerId) {
-		List<Likes> likes = likeRepository.findAllByCategoryIdAndLikerId(categoryId, likerId);
-		return likes;
+	public List<LikeDetailResponse> fetchMyLikeByCategoryId(int categoryId, String likerId) {
 	}
 	
 	//TODO IMPL

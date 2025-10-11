@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface LikeAccountRepository extends CrudRepository<LikeAccount, String> {
 	
 	@Modifying
@@ -19,5 +21,7 @@ public interface LikeAccountRepository extends CrudRepository<LikeAccount, Strin
 	@Query(value = "UPDATE like_account SET account = account - 1 WHERE reference_id = :ref AND account > 0", nativeQuery = true)
 	int decrementAccountIfPositive(String ref);
 	
+	
+	List<LikeAccount> findAllByReferenceIdIn(List<String> referenceIds);
 	
 }
