@@ -19,6 +19,7 @@ public class LikeReadService {
 	
 	//TODO IMPL RESPONSE
 	public List<LikeDetailResponse> fetchMyLikeByCategoryId(int categoryId, String likerId) {
+		return null;
 	}
 	
 	//TODO IMPL
