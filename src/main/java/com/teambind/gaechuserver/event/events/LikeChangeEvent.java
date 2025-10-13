@@ -1,11 +1,14 @@
 package com.teambind.gaechuserver.event.events;
 
+import lombok.*;
+
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class LikeChangeEvent {
-	private Long articleId;
-	private Long likerId;
-	
-	public LikeChangeEvent(Long articleId, Long likerId) {
-		this.articleId = articleId;
-		this.likerId = likerId;
-	}
+	private String articleId;
+	private String likerId;
 }

@@ -1,6 +1,8 @@
 package com.teambind.gaechuserver.service;
 
 import com.teambind.gaechuserver.entity.Likes;
+import com.teambind.gaechuserver.event.events.LikeChangeEvent;
+import com.teambind.gaechuserver.event.publisher.LikeChangeEventPublisher;
 import com.teambind.gaechuserver.exceptions.CustomException;
 import com.teambind.gaechuserver.exceptions.ErrorCode;
 import com.teambind.gaechuserver.repository.LikeAccountRepository;
@@ -18,6 +20,7 @@ public class LikeServiceAtomic {
 	private final LikeRepository likeRepository;
 	private final LikeAccountRepository likeAccountRepository;
 	private final KeyProvider keyProvider;
+	private final LikeChangeEventPublisher likeChangeEventPublisher;
 	
 	
 	@Transactional
@@ -35,6 +38,11 @@ public class LikeServiceAtomic {
 				.build();
 		likeRepository.saveAndFlush(like);
 		
+		likeChangeEventPublisher.likeIncreaseEventPublish(LikeChangeEvent.builder()
+				.articleId(like.getReferenceId())
+				.likerId(likerId)
+				.build());
+		
 		return affected;
 	}
 	
@@ -45,6 +53,10 @@ public class LikeServiceAtomic {
 			throw new CustomException(ErrorCode.LIKE_NOT_FOUND);
 		}
 		likeRepository.delete(like);
+		likeChangeEventPublisher.likeDecreaseEventPublish(LikeChangeEvent.builder()
+				.articleId(like.getReferenceId())
+				.likerId(likerId)
+				.build());
 		
 		// DB에서 atomic 감소 (categoryId 추가)
 		return likeAccountRepository.decrementAccountIfPositive(categoryId, referenceId);
